@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 // import productListArray from "../../../Components/ProductListArray";
 import Table from "@mui/material/Table";
@@ -15,7 +15,14 @@ import CustomText from "../../../Components/CustomComponents/CustomText";
 import CustomButton from "../../../Components/CustomComponents/CustomButton";
 import CustomSearchFilter from "../../../Components/CustomComponents/CustomSearchFilter";
 import "../../../Assets/css/font.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { listProduct } from "../../../Actions/ProductAction";
+import {
+  PRODUCT_LIST_FAIL,
+  PRODUCT_LIST_REQUEST,
+  PRODUCT_LIST_SUCCESS,
+} from "../../../Constant/ProductConstant";
+import productListArray from "../../../Components/ProductListArray";
 // import MuiTableCell from "@material-ui/core/TableCell";
 // import { withStyles } from "@mui/material";
 
@@ -26,19 +33,17 @@ import { useSelector } from "react-redux";
 //   }
 // })(TableCell);
 
-
-
 const ProductTableCell = [
   { id: 1, name: "#" },
   { id: 1, name: "Image" },
   { id: 1, name: "Name" },
-  { id: 1, name: "Stock" },
-  { id: 1, name: "Sale Price" },
-  { id: 1, name: "Purchase Price" },
-  { id: 1, name: "Status" },
-  { id: 1, name: "Delete" },
-  { id: 1, name: "Edit" },
-  { id: 1, name: "View" },
+  { id: 1, name: "Status 1" },
+  { id: 1, name: "Status 2" },
+  // { id: 1, name: "Purchase Price" },
+  // { id: 1, name: "Status" },
+  // { id: 1, name: "Delete" },
+  // { id: 1, name: "Edit" },
+  // { id: 1, name: "View" },
 ];
 
 const useStyles = makeStyles({
@@ -47,42 +52,37 @@ const useStyles = makeStyles({
   },
 });
 
-
-
 const ProductsList = () => {
-  const productList = useSelector((state) => state.productListReducer)
-const { products } = productList
-  const classes = useStyles();
+  const eduArray = [
+    {
+      id: 1,
+      name: "<educator name> uploaded new micro-course for approval and edits view here",
+    },
+    {
+      id: 2,
+      name: "<educator name> uploaded new micro-course for approval and edits view here",
+    },
+    {
+      id: 3,
+      name: "<educator name> uploaded new micro-course for approval and edits view here",
+    },
+    {
+      id: 4,
+      name: "<educator name> uploaded new micro-course for approval and edits view here",
+    },
+    {
+      id: 5,
+      name: "<educator name> uploaded new micro-course for approval and edits view here",
+    },
+  ];
   return (
     <div
       style={{
         width: "auto",
         alignSelf: "center",
         padding: 30,
-        // backgroundColor: colors.lightgray,
       }}
     >
-      {/* <TableCells>Nooooo</TableCells> */}
-      {/* <div
-        style={{
-          backgroundColor: "#fff",
-          // marginBottom: -10,
-          border: "solid",
-          borderWidth: 0.4,
-          borderBottomLeftRadius: 0,
-          borderBottomRightRadius: 0,
-          borderTopLeftRadius: 5,
-          borderTopRightRadius: 5,
-          borderBottom: 0,
-          color: colors.lightgray,
-          boxShadow: "10",
-          // boxShadow: '5px 0 10px 2px'
-          boxShadow: "1px 2px 9px #F4AAB9",
-          // borderRadius: 5,
-        }}
-      >
-        <CustomButtonHeader />
-      </div> */}
 
       <TableContainer
         sx={{
@@ -100,24 +100,10 @@ const { products } = productList
         // component={Paper}
         style={{}}
       >
-        <CustomButtonHeader />
+        {/* <CustomButtonHeader /> */}
         <Table aria-label="simple table">
-          {/* <TableHead style={{backgroundColor:colors.grey}} >
-        <TableRow style={{width:"100%"}} >
-          </TableRow>
-        </TableHead> */}
-          {/* <TableHead sx={{display:"flex", justifyContent:"space-evenly", width:"100%"}} >
-          <TableRow>
-            <TableCell>
-              <CustomText title="Product List" />
-            </TableCell>
-            <TableCell><CustomButton title="hellllo" /></TableCell>
-            <TableCell><CustomSearchFilter /></TableCell>
-          </TableRow>
-        </TableHead> */}
           <TableHead
             sx={{
-              // lineHeight:5,
               background: "linear-gradient(to right,#9cbefe, #f4f4f4)",
               boxShadow: "0.5px 0.5px 10px #6b9efd",
             }}
@@ -135,9 +121,10 @@ const { products } = productList
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((item) => (
+          {/* {products.map((item) => (<div>{item.name}</div>))} */}
+            {eduArray.map((item, index) => (
               <TableRow key={item.name} hover>
-                <TableCell
+                {/* <TableCell
                   sx={{ borderBottom: "none" }}
                   component="th"
                   scope="row"
@@ -146,6 +133,22 @@ const { products } = productList
                 </TableCell>
                 <TableCell sx={{ borderBottom: "none" }} align="center">
                   {item.image}
+                </TableCell> */}
+                <TableCell sx={{ borderBottom: "none" }} align="center">
+                  {item.id}
+                </TableCell>
+                <TableCell sx={{ borderBottom: "none", backgroundColor:"red",  }} align="center">
+                  {<div
+                style={{
+                  height: 50,
+                  width: 50,
+                  backgroundColor: "lightgrey",
+                  borderRadius: 50,
+                  display:"flex",
+                  alignItems:"center",
+                  alignSelf:"center", justifyContent:"center"
+                }}
+              ></div>}
                 </TableCell>
                 <TableCell sx={{ borderBottom: "none" }} align="center">
                   {item.name}
@@ -154,15 +157,9 @@ const { products } = productList
                   {item.stock}
                 </TableCell>
                 <TableCell sx={{ borderBottom: "none" }} align="center">
-                  {item.SalePrice}
-                </TableCell>
-                <TableCell sx={{ borderBottom: "none" }} align="center">
-                  {item.PurchasePrice}
-                </TableCell>
-                <TableCell sx={{ borderBottom: "none" }} align="center">
                   {"Status"}
                 </TableCell>
-                <TableCell sx={{ borderBottom: "none" }} align="center">
+                {/* <TableCell sx={{ borderBottom: "none" }} align="center">
                   {"Delete"}
                 </TableCell>
                 <TableCell sx={{ borderBottom: "none" }} align="center">
@@ -170,12 +167,20 @@ const { products } = productList
                 </TableCell>
                 <TableCell sx={{ borderBottom: "none" }} align="center">
                   {"View"}
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        {/* {products.map((item) => (
+          <div>
+            {item.name}
+
+          </div>
+        ))} */}
+      </div>
     </div>
   );
 };

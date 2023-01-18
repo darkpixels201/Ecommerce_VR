@@ -16,25 +16,28 @@ import { AiOutlineUser } from "react-icons/ai";
 import { IoReceiptOutline } from "react-icons/io5";
 import { BsReceiptCutoff } from "react-icons/bs";
 import NavbarMap from "./NavbarMap";
+import CustomText from "../CustomComponents/CustomText";
+import Spacer from "../CustomComponents/Spacer";
+import { colors } from "../../utils/Colors";
 
 const NavbarDashboard = () => {
   const menu = [
     {
       id: 1,
       menuItem: {
-        name: "Products",
+        name: "Dashboard",
         path: "",
         icon: <RiProductHuntLine size={23} />,
       },
-      subMenu: [
-        { name: "Products", path: "/dashboard/products" },
-        { name: "Add Products", path: "/dashboard/addproduct" },
-      ],
+      // subMenu: [
+      //   { name: "Products", path: "/dashboard/products" },
+      //   { name: "Add Products", path: "/dashboard/addproduct" },
+      // ],
     },
     {
       id: 2,
       menuItem: {
-        name: "Order",
+        name: "Microcourses approval",
         path: "/dashboard/order",
         icon: <BsReceiptCutoff size={23} />,
       },
@@ -42,7 +45,23 @@ const NavbarDashboard = () => {
     {
       id: 3,
       menuItem: {
-        name: "Stock",
+        name: "Educators",
+        path: "/dashboard/stock",
+        icon: <TbStack2 size={23} />,
+      },
+    },
+    {
+      id: 3,
+      menuItem: {
+        name: "Payments",
+        path: "/dashboard/stock",
+        icon: <TbStack2 size={23} />,
+      },
+    },
+    {
+      id: 3,
+      menuItem: {
+        name: "Live and trending microcourses",
         path: "/dashboard/stock",
         icon: <TbStack2 size={23} />,
       },
@@ -68,21 +87,35 @@ const NavbarDashboard = () => {
     // fontSize: "30px",
     cursor: "pointer",
     // backgroundColor: isHover ? "lightblue" : "rgb(0, 191, 255)",
-    color: isHover ? "red" : "purple",
+    // color: isHover ? "black" : "white",
+    // backgroundColor:colors.white1,
   };
   const { toggleSidebar } = useProSidebar();
 
   return (
     <div>
       <Sidebar
-        style={{ height: "100%", minHeight: "100vh" }}
-        rootStyles={{
-          background:
-            "linear-gradient(180deg, rgba(166,240,255,1) 0%, rgba(220,250,255,1) 49%, rgba(230,252,255,1) 100%)",
-        }}
+        backgroundColor="#503E9D"
+        style={{ height: window.innerWidth<=480?"100vh":"90vh", minHeight: "90vh", borderRightWidth: 0 }}
+        // rootStyles={{
+        //   height:"60vh"
+        //     // "linear-gradient(180deg, rgba(166,240,255,1) 0%, rgba(220,250,255,1) 49%, rgba(230,252,255,1) 100%)",
+        // }}
         breakPoint={window.innerWidth <= 450 ? "always" : null}
         defaultCollapsed={SubMenu ? false : true}
       >
+        <Spacer height={20} />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CustomText title="APP LOGO" color={colors.white1} fontWeight={800} fontSize={27} />
+        </div>
+        <Spacer height={50} />
+
         <Menu
           style={boxStyle}
           // onMouseEnter={handleMouseEnter}

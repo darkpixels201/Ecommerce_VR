@@ -7,6 +7,8 @@ import {
   SubMenu,
   useProSidebar,
 } from "react-pro-sidebar";
+import { colors } from "../../utils/Colors";
+import CustomText from "../CustomComponents/CustomText";
 
 const NavbarMap = ({ item }) => {
   const [isHover, setIsHover] = useState(false);
@@ -27,7 +29,21 @@ const NavbarMap = ({ item }) => {
     // fontSize: "30px",
     cursor: "pointer",
     // backgroundColor: isHover ? "lightblue" : "rgb(0, 191, 255)",
-    color: isHover ? "red" : "purple",
+    // color: isHover ? "red" : "purple",
+    color: isHover ? "#DB8E72" : colors.black,
+    backgroundColor:colors.white1,
+    fontWeight: 700,
+    borderBottomLeftRadius:50,
+    borderTopLeftRadius:50,
+    marginTop:20,
+    fontSize:14
+    // paddingBottom:50,
+    // paddingTop:50
+    // position:"absolute",
+    // margin:-20,
+    // width:40,
+    // height:40,
+
   };
   const { toggleSidebar } = useProSidebar();
 
@@ -65,9 +81,9 @@ const NavbarMap = ({ item }) => {
         </SubMenu>
       ) : (
         <MenuItem
-        style={boxStyle}
+          style={boxStyle}
           onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+          onMouseLeave={handleMouseLeave}
           onClick={() => {
             window.innerWidth <= 450 ? toggleSidebar() : console.log("Yes");
           }}
